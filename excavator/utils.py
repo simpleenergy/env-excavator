@@ -35,7 +35,7 @@ def env_bool(name, truthy_values=TRUE_VALUES, required=False, default=None):
     return env_value in TRUE_VALUES
 
 
-def env_list(name, required=False, default='', separator=','):
+def env_list(name, separator=',', required=False, default=''):
     """
     Return a list of items derived from an environmental variable.  This is
     done by splitting the string value from the environment on a given
