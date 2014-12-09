@@ -55,14 +55,13 @@ def test_env_bool_when_missing_and_default_provided():
     """
     assert 'TEST_BOOLEAN_ENV_VARIABLE' not in os.environ
 
-    actual = env_bool('TEST_BOOLEAN_ENV_VARIABLE', default='True')
+    actual = env_bool('TEST_BOOLEAN_ENV_VARIABLE', default=True)
     assert actual is True
 
 
 def test_that_required_and_default_are_mutually_exclusive():
     """
-    Test that when the env variable is not set and a default is provided, the
-    default is used.
+    Test that when `required` and `default` are both set, raises a ValueError.
     """
     with pytest.raises(ValueError):
-        env_bool('TEST_BOOLEAN_ENV_VARIABLE', required=True, default='True')
+        env_bool('TEST_BOOLEAN_ENV_VARIABLE', required=True, default=True)

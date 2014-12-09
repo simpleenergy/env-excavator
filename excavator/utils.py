@@ -21,6 +21,7 @@ def env_string(name, default='', required=False):
 
 
 TRUE_VALUES = set((
+    True,
     'True',
     'true',
 ))
@@ -29,7 +30,7 @@ TRUE_VALUES = set((
 def env_bool(name, truthy_values=TRUE_VALUES, required=False, default=None):
     """
     Return a boolean value derived from an environmental variable.  This is
-    done via string comparison.
+    done via string comparison (Or if the value is `True`).
     """
     env_value = env_string(name, required=required, default=default)
     return env_value in TRUE_VALUES
