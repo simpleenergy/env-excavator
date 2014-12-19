@@ -68,7 +68,7 @@ API
 
   Pulls an environment variable out of the environment, splitting it on a
   separator, and returning it as a list.  Extra whitespace on the list values
-  is stripped.
+  is stripped.  List values that evaluate as falsy are removed.
 
   **name** - the name of the environment variable be pulled
   
