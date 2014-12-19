@@ -37,6 +37,17 @@ def test_env_list_with_custom_separator(monkeypatch):
     assert actual == ['a', 'b', 'c']
 
 
+def test_env_list_with_empty_list(monkeypatch):
+    """
+    Test that when the environment variable is missing and a default is
+    provided, the default is used.
+    """
+    monkeypatch.setenv('TEST_BOOLEAN_ENV_VARIABLE', '')
+
+    actual = env_list('TEST_BOOLEAN_ENV_VARIABLE')
+    assert actual == []
+
+
 def test_env_list_with_default_value():
     """
     Test that when the environment variable is missing and a default is
