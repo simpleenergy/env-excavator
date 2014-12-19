@@ -42,4 +42,5 @@ def env_list(name, separator=',', required=False, default=''):
     separator.
     """
     value = env_string(name, required=required, default=default)
-    return filter(bool, [v.strip() for v in value.split(separator)])
+    # wrapped in list to force evaluation in python 3
+    return list(filter(bool, [v.strip() for v in value.split(separator)]))
