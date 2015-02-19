@@ -36,7 +36,9 @@ API
 
 * ``excavator.env_string(name, required=False, default='')``::
 
-  Pulls an environment variable out of the environment returning it as a string.
+  Pulls an environment variable out of the environment returning it as a
+  string.  If not present in the environment and no default is specified, an
+  empty string is returned.
 
   **name** - the name of the environment variable be pulled
 
@@ -47,11 +49,12 @@ API
   (providing a default alongside setting ``required=True`` will raise a
   ``ValueError``)
 
-* ``excavator.env_bool(name, truthy_values=('True', 'true'), required=False, default='')``::
+* ``excavator.env_bool(name, truthy_values=('True', 'true'), required=False, default=None)``::
 
   Pulls an environment variable out of the environment returning it as a
   boolean.  The strings ``'True'`` and ``'true'`` are the default *truthy*
-  values.
+  values.  If not present in the environment and no default is specified,
+  ``None`` is returned.
 
   **name** - the name of the environment variable be pulled
   
@@ -64,15 +67,32 @@ API
   (providing a default alongside setting ``required=True`` will raise a
   ``ValueError``)
 
-* ``excavator.env_list(name, separator=',', required=False, default='')``::
+* ``excavator.env_list(name, separator=',', required=False, default=[])``::
 
   Pulls an environment variable out of the environment, splitting it on a
   separator, and returning it as a list.  Extra whitespace on the list values
-  is stripped.  List values that evaluate as falsy are removed.
+  is stripped.  List values that evaluate as falsy are removed.  If not present
+  and no default specified, an empty list is returned.
 
   **name** - the name of the environment variable be pulled
   
   **separator** - The separator that the string should be split on.
+
+  **required** - Whether the environment variable is required.  If ``True`` and
+  the variable is not present, a ``KeyError`` is raised.
+
+  **default** - The value to return if the environment variable is not present.
+  (providing a default alongside setting ``required=True`` will raise a
+  ``ValueError``)
+
+* ``excavator.env_int(name, separator=',', required=False, default='')``::
+
+  Pulls an environment variable out of the environment and casts it to an integer.
+  If the name is not present in the environment and no default is specified
+  then a ``ValueError`` will be raised.  Similarly, if the environment value is
+  not castable to an integer, a ``ValueError`` will be raised.
+
+  **name** - the name of the environment variable be pulled
 
   **required** - Whether the environment variable is required.  If ``True`` and
   the variable is not present, a ``KeyError`` is raised.
