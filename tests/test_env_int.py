@@ -32,7 +32,7 @@ def test_env_int_not_required_and_not_set():
     assert 'TEST_INT_ENV_VARIABLE' not in os.environ
 
     with pytest.raises(ValueError):
-        actual = env_int('TEST_INT_ENV_VARIABLE')
+        env_int('TEST_INT_ENV_VARIABLE')
 
 
 def test_env_int_when_missing_and_required_is_error():
