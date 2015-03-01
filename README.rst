@@ -100,3 +100,24 @@ API
   **default** - The value to return if the environment variable is not present.
   (providing a default alongside setting ``required=True`` will raise a
   ``ValueError``)
+
+* ``excavator.env_datetime(name, required=False, default='', format='timestamp')``::
+
+  Pulls an environment variable out of the environment and parses it to a
+  ``datetime.datetime`` object.
+
+  If the name is not present in the environment and no default is specified
+  then a ``ValueError`` will be raised.
+
+  **name** - the name of the environment variable be pulled
+
+  **required** - Whether the environment variable is required.  If ``True`` and
+  the variable is not present, a ``KeyError`` is raised.
+
+  **default** - The value to return if the environment variable is not present.
+  (providing a default alongside setting ``required=True`` will raise a
+  ``ValueError``)
+
+  **format** - The format of the datetime string to be parsed.  Supported
+  formats are ``timestamp`` and ``iso8601``  Parsing of ``iso8601`` values
+  requires the ``iso8601`` library.
