@@ -1,11 +1,8 @@
 import os
 
 
-class Empty(object):
+class empty(object):
     pass
-
-
-empty = Empty()
 
 
 def get_env_value(name, default=empty, required=False):
