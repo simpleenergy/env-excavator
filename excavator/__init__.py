@@ -4,4 +4,5 @@ from .utils import (  # NOQA
     env_string,
     env_bool,
     env_list,
+    env_int,
 )
