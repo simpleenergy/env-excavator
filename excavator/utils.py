@@ -106,6 +106,17 @@ _formats = {
     'timestamp': _parse_timestamp,
     'iso8601': _parse_iso8601,
 }
+def env_iso8601(name, default=empty, required=False):
+    value = get_env_value(name, required=required, default=empty)
+    # change datetime.datetime to time, return time.struct_time type
+    if default is not empty and value is empty:
+        return default
+    if value is empty:
+        raise ValueError(
+            "`env_datetime` requires either a default value to be specified, or "
+            "for the variable to be present in the environment"
+        )
+    return parser(value)
 
 
 def env_datetime(name, default=empty, required=False, fmt='timestamp'):
