@@ -87,54 +87,42 @@ def env_int(name, required=False, default=empty):
     return int(value)
 
 
-def _parse_timestamp(timestamp_str):
-    timestamp = float(timestamp_str)
-    return datetime.datetime.fromtimestamp(timestamp)
+def env_timestamp(name, default=empty, required=False):
+    if required and default is not empty:
+        raise ValueError("Using `default` with `required=True` is invalid")
 
-
-def _parse_iso8601(iso8601_str):
-    try:
-        import iso8601
-    except ImportError:
-        raise ImportError(
-            'Parsing iso8601 datetime strings requires the iso8601 library'
-        )
-    return iso8601.parse_date(iso8601_str)
-
-
-_formats = {
-    'timestamp': _parse_timestamp,
-    'iso8601': _parse_iso8601,
-}
-def env_iso8601(name, default=empty, required=False):
     value = get_env_value(name, required=required, default=empty)
     # change datetime.datetime to time, return time.struct_time type
     if default is not empty and value is empty:
         return default
     if value is empty:
         raise ValueError(
-            "`env_datetime` requires either a default value to be specified, or "
+            "`env_timestamp` requires either a default value to be specified, or "
             "for the variable to be present in the environment"
         )
-    return parser(value)
+
+    timestamp = float(value)
+    return datetime.datetime.fromtimestamp(timestamp)
 
 
-def env_datetime(name, default=empty, required=False, fmt='timestamp'):
-    """
-    Convert UTC time string to time.struct_time
-    """
+def env_iso8601(name, default=empty, required=False):
     try:
-        parser = _formats[fmt]
-    except KeyError:
-        raise KeyError("Unknown format {0}.  Must be one of {1}".format(
-            fmt, _formats.keys(),
-        ))
+        import iso8601
+    except ImportError:
+        raise ImportError(
+            'Parsing iso8601 datetime strings requires the iso8601 library'
+        )
 
-    value = get_env_value(name, required=required, default=default)
+    if required and default is not empty:
+        raise ValueError("Using `default` with `required=True` is invalid")
+
+    value = get_env_value(name, required=required, default=empty)
     # change datetime.datetime to time, return time.struct_time type
+    if default is not empty and value is empty:
+        return default
     if value is empty:
         raise ValueError(
-            "`env_datetime` requires either a default value to be specified, or "
+            "`env_iso8601` requires either a default value to be specified, or "
             "for the variable to be present in the environment"
         )
-    return parser(value)
+    return iso8601.parse_date(value)
