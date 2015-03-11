@@ -101,7 +101,7 @@ API
   (providing a default alongside setting ``required=True`` will raise a
   ``ValueError``)
 
-* ``excavator.env_timestamp(name, required=False, default='', format='timestamp')``::
+* ``excavator.env_timestamp(name, required=False, default='')``::
 
   Pulls an environment variable out of the environment and parses it to a
   ``datetime.datetime`` object.  The environment variable is expected to be a
@@ -119,7 +119,7 @@ API
   (providing a default alongside setting ``required=True`` will raise a
   ``ValueError``)
 
-* ``excavator.env_iso8601(name, required=False, default='', format='timestamp')``::
+* ``excavator.env_iso8601(name, required=False, default='')``::
 
   Pulls an environment variable out of the environment and parses it to a
   ``datetime.datetime`` object.  The environment variable is expected to be an
