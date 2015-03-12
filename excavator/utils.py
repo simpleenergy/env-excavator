@@ -1,4 +1,5 @@
 import os
+import datetime
 
 
 class empty(object):
@@ -80,7 +81,48 @@ def env_int(name, required=False, default=empty):
     value = get_env_value(name, required=required, default=default)
     if value is empty:
         raise ValueError(
-            "`env_int` requires either a default value to be specified, or, for "
+            "`env_int` requires either a default value to be specified, or for "
             "the variable to be present in the environment"
         )
     return int(value)
+
+
+def env_timestamp(name, default=empty, required=False):
+    if required and default is not empty:
+        raise ValueError("Using `default` with `required=True` is invalid")
+
+    value = get_env_value(name, required=required, default=empty)
+    # change datetime.datetime to time, return time.struct_time type
+    if default is not empty and value is empty:
+        return default
+    if value is empty:
+        raise ValueError(
+            "`env_timestamp` requires either a default value to be specified, or "
+            "for the variable to be present in the environment"
+        )
+
+    timestamp = float(value)
+    return datetime.datetime.fromtimestamp(timestamp)
+
+
+def env_iso8601(name, default=empty, required=False):
+    try:
+        import iso8601
+    except ImportError:
+        raise ImportError(
+            'Parsing iso8601 datetime strings requires the iso8601 library'
+        )
+
+    if required and default is not empty:
+        raise ValueError("Using `default` with `required=True` is invalid")
+
+    value = get_env_value(name, required=required, default=empty)
+    # change datetime.datetime to time, return time.struct_time type
+    if default is not empty and value is empty:
+        return default
+    if value is empty:
+        raise ValueError(
+            "`env_iso8601` requires either a default value to be specified, or "
+            "for the variable to be present in the environment"
+        )
+    return iso8601.parse_date(value)
