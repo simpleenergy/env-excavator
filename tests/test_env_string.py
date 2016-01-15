@@ -23,7 +23,7 @@ def test_env_string_with_default_value(monkeypatch):
     """
     assert 'TEST_BOOLEAN_ENV_VARIABLE' not in os.environ
 
-    actual = env_string('TEST_BOOLEAN_ENV_VARIABLE', 'test-value')
+    actual = env_string('TEST_BOOLEAN_ENV_VARIABLE', default='test-value')
     assert actual == 'test-value'
 
 
