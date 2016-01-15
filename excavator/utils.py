@@ -225,3 +225,44 @@ def env_iso8601(name, required=False, default=empty):
             "for the variable to be present in the environment"
         )
     return iso8601.parse_date(value)
+
+
+def get(name, required=False, default=empty, type=None):
+    """Generic getter for environment variables. Handles defaults,
+    required-ness, and what type to expect.
+
+    :param name: The name of the environment variable be pulled
+    :type name: str
+
+    :param required: Whether the environment variable is required. If ``True``
+    and the variable is not present, a ``KeyError`` is raised.
+    :type required: bool
+
+    :param default: The value to return if the environment variable is not
+    present. (Providing a default alongside setting ``required=True`` will raise
+    a ``ValueError``)
+    :type default: bool
+
+    :param type: The type of variable expected.
+    :param type: str or type
+    """
+    fn = {
+        'int': env_int,
+        int: env_int,
+
+        'bool': env_bool,
+        bool: env_bool,
+
+        'string': env_string,
+        str: env_string,
+
+        'list': env_list,
+        list: env_list,
+
+        'timestamp': env_timestamp,
+        datetime.time: env_timestamp,
+
+        'datetime': env_iso8601,
+        datetime.datetime: env_iso8601,
+    }.get(type, env_string)
+    return fn(name, default=default, required=required)

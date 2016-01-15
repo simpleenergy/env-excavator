@@ -20,13 +20,13 @@ Install env-excavator::
 Example use it in a project::
 
     >>> import os
-    >>> import excavator
+    >>> import excavator as env
     >>> os.environ['FROM_EMAIL'] = 'admin@example.com'
-    >>> excavator.env_string('FROM_EMAIL')
-    ... 'admin@example.com'
+    >>> env.get('FROM_EMAIL')
+    'admin@example.com'
     >>> os.environ['DEBUG'] = 'True'
-    >>> DEBUG = excavator.env_bool('DEBUG')
-    ... True
+    >>> env.get('DEBUG', type=bool)
+    True
     >>> os.environ['ALLOWED_HOSTS'] = '.example.com,.example.net'
-    >>> excavator.env_list('ALLOWED_HOSTS')
+    >>> env.get('ALLOWED_HOSTS', type=list)
     ['.example.com', '.example.net']
