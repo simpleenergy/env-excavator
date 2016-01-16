@@ -37,3 +37,11 @@ release: clean
 sdist: clean
 	python setup.py sdist
 	ls -l dist
+
+docs:
+	rm -f docs/hexes.rst
+	rm -f docs/modules.rst
+	sphinx-apidoc -o docs/ hexes
+	$(MAKE) -C docs clean
+	$(MAKE) -C docs html
+	open docs/_build/html/index.html
