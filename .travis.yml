@@ -1,6 +1,6 @@
 language: python
 python:
-  - "2.7"
+  - "3.5"
 sudo: false
 env:
   global:
@@ -8,8 +8,8 @@ env:
   matrix:
     - TOX_ENV=py26,
     - TOX_ENV=py27,
-    - TOX_ENV=py33,
     - TOX_ENV=py34,
+    - TOX_ENV=py35,
     - TOX_ENV=with_iso8601,
     - TOX_ENV=flake8
 cache:
