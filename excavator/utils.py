@@ -69,6 +69,34 @@ def env_int(name, required=False, default=empty):
     return int(value)
 
 
+def env_float(name, required=False, default=empty):
+    """Pulls an environment variable out of the environment and casts it to an
+    integer. If the name is not present in the environment and no default is
+    specified then a ``ValueError`` will be raised. Similarly, if the
+    environment value is not castable to an float, a ``ValueError`` will be
+    raised.
+
+    :param name: The name of the environment variable be pulled
+    :type name: str
+
+    :param required: Whether the environment variable is required. If ``True``
+    and the variable is not present, a ``KeyError`` is raised.
+    :type required: bool
+
+    :param default: The value to return if the environment variable is not
+    present. (Providing a default alongside setting ``required=True`` will raise
+    a ``ValueError``)
+    :type default: bool
+    """
+    value = get_env_value(name, required=required, default=default)
+    if value is empty:
+        raise ValueError(
+            "`env_float` requires either a default value to be specified, or for "
+            "the variable to be present in the environment"
+        )
+    return float(value)
+
+
 def env_bool(name, truthy_values=TRUE_VALUES, required=False, default=empty):
     """Pulls an environment variable out of the environment returning it as a
     boolean. The strings ``'True'`` and ``'true'`` are the default *truthy*

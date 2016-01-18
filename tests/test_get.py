@@ -24,6 +24,9 @@ except ImportError:
 
         ('timestamp', datetime.time(11, 59)),
         (datetime.time, datetime.time(11, 59)),
+
+        ('float', 42.0),
+        (float, 42.0),
     )
 )
 def test_get_mapping(type, expected):

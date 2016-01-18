@@ -5,6 +5,7 @@ from .utils import (  # NOQA
     env_bool,
     env_list,
     env_int,
+    env_float,
     env_timestamp,
     env_iso8601,
     get,
