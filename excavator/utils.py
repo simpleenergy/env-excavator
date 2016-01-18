@@ -71,7 +71,7 @@ def env_int(name, required=False, default=empty):
 
 def env_float(name, required=False, default=empty):
     """Pulls an environment variable out of the environment and casts it to an
-    integer. If the name is not present in the environment and no default is
+    float. If the name is not present in the environment and no default is
     specified then a ``ValueError`` will be raised. Similarly, if the
     environment value is not castable to an float, a ``ValueError`` will be
     raised.
